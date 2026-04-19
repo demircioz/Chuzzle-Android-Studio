@@ -1,0 +1,27 @@
+@startuml
+start
+
+:Grid.hasPossibleMoves();
+:Créer un GridMoveAnalyst;
+
+while (Ligne à tester ?) is (oui)
+  if (Ligne déplaçable ?) then (oui)
+    if (Un décalage horizontal\ncrée un alignement ?) then (oui)
+      :Retourner vrai;
+      stop
+    endif
+  endif
+endwhile (non)
+
+while (Colonne à tester ?) is (oui)
+  if (Colonne déplaçable ?) then (oui)
+    if (Un décalage vertical\ncrée un alignement ?) then (oui)
+      :Retourner vrai;
+      stop
+    endif
+  endif
+endwhile (non)
+
+:Retourner faux;
+stop
+@enduml

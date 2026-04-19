@@ -1,0 +1,85 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide members
+left to right direction
+
+package "controller.activities" {
+  class MainActivity <<Activity>>
+  class SeedActivity <<Activity>>
+  class GameActivity <<Activity>>
+  class OptionsActivity <<Activity>>
+}
+
+package "controller.game" {
+  class GameLoop
+  class GameTouchController
+}
+
+package "controller.listeners" {
+  class PlayRandomListener
+  class PlaySeedListener
+  class ResumeGameListener
+  class OptionsListener
+  class SeedButtonListener
+  class CopySeedListener
+}
+
+package "controller.persistence" {
+  class SaveGame
+  class SaveGameManager
+}
+
+package "model.box" {
+  class Box
+}
+
+package "model.grid" {
+  class Grid
+  class GridPhysics
+  class GridMoveAnalyst
+}
+
+package "view" {
+  class GameView
+}
+
+MainActivity ..> PlayRandomListener
+MainActivity ..> PlaySeedListener
+MainActivity ..> ResumeGameListener
+MainActivity ..> OptionsListener
+MainActivity ..> SaveGameManager
+
+PlayRandomListener ..> GameActivity
+PlaySeedListener ..> SeedActivity
+ResumeGameListener ..> GameActivity
+OptionsListener ..> OptionsActivity
+
+SeedActivity ..> SeedButtonListener
+SeedButtonListener ..> GameActivity
+
+GameActivity ..> GameView
+GameActivity ..> GameLoop
+GameActivity ..> SaveGameManager
+GameActivity ..> CopySeedListener
+
+GameTouchController ..> GameLoop
+GameTouchController ..> GameView
+
+GameLoop ..> Grid
+GameLoop ..> GameView
+GameLoop ..> GameActivity
+
+SaveGameManager ..> SaveGame
+SaveGameManager ..> Grid
+SaveGameManager ..> Box
+
+GameView ..> Grid
+
+Grid *-- Box
+Grid *-- GridPhysics
+Grid ..> GridMoveAnalyst
+
+GridPhysics ..> Box
+GridMoveAnalyst ..> Box
+
+@enduml

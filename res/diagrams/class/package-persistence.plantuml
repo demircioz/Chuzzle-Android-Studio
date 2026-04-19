@@ -1,0 +1,37 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class SaveGame {
+  -seed : long
+  -score : int
+  -moves : int
+  -colors : int[]
+  -avails : boolean[]
+  -generator : Random
+  -invertedGravity : boolean
+  +getSeed() : long
+  +getScore() : int
+  +getMoves() : int
+  +getColors() : int[]
+  +getAvails() : boolean[]
+  +getGenerator() : Random
+  +isInvertedGravity() : boolean
+}
+
+class SaveGameManager <<static>> {
+  {static} +hasSavedGame(context : Context) : boolean
+  {static} +save(context : Context, grid : Grid, score : int, moves : int)
+  {static} +load(context : Context) : SaveGame
+  {static} +clear(context : Context)
+  {static} +writeToBundle(outState : Bundle, grid : Grid, score : int, moves : int)
+  {static} +fromBundle(bundle : Bundle) : SaveGame
+}
+
+class Grid
+class Box
+
+SaveGameManager ..> SaveGame
+SaveGameManager ..> Grid
+SaveGameManager ..> Box
+
+@enduml

@@ -1,0 +1,36 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide members
+
+class MainActivity
+class PlayRandomListener
+class PlaySeedListener
+class ResumeGameListener
+class SeedActivity
+class SeedButtonListener
+class GameActivity
+class GameTouchController
+class GameLoop
+class GameView
+class Grid
+class SaveGameManager
+
+MainActivity ..> PlayRandomListener
+MainActivity ..> PlaySeedListener
+MainActivity ..> ResumeGameListener
+
+PlayRandomListener ..> GameActivity : partie aléatoire
+PlaySeedListener ..> SeedActivity
+SeedActivity ..> SeedButtonListener
+SeedButtonListener ..> GameActivity : partie seedée
+ResumeGameListener ..> GameActivity : reprise
+
+GameActivity ..> GameView
+GameActivity ..> GameTouchController
+GameActivity ..> GameLoop
+GameActivity ..> SaveGameManager
+GameLoop ..> Grid
+GameTouchController ..> GameLoop
+GameView ..> Grid
+
+@enduml

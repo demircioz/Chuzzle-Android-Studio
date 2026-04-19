@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Chuzzle</string>
+    <string name="main_menu_resume_game">Reprendre la partie</string>
+    <string name="main_menu_play_random">Partie normale</string>
+    <string name="main_menu_play_seed">Partie avec seed</string>
+    <string name="main_menu_settings">Paramètres</string>
+    <string name="seed_prompt">Entrez une graine :</string>
+    <string name="seed_hint">Exemple : 123456789</string>
+    <string name="seed_play_button">Lancer la partie</string>
+    <string name="seed_error_required">Veuillez entrer une graine.</string>
+    <string name="seed_error_invalid">La graine entrée est invalide.</string>
+    <string name="game_score_initial">Score : 0</string>
+    <string name="game_moves_initial">Coups : 0</string>
+    <string name="game_score_value">Score : %1$d</string>
+    <string name="game_moves_value">Coups : %1$d</string>
+    <string name="game_final_score_format">Score final : %1$d</string>
+    <string name="game_final_moves_format">Coups joués : %1$d</string>
+    <string name="game_seed_display">Graine de la partie :\n%1$d\n(Appuyez pour copier)</string>
+    <string name="game_over_title">Partie terminée</string>
+    <string name="game_over_title_short">FIN !</string>
+    <string name="game_over_retry">Rejouer</string>
+    <string name="game_over_quit">Quitter</string>
+</resources>

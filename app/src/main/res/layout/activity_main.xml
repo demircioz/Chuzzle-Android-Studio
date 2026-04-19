@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/menu_portrait_background">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:paddingTop="25dp"
+        android:background="@android:color/transparent"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/main_menu_logo"
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/logo_chuzzle"
+            android:elevation="12dp"
+            android:contentDescription="@string/app_name" />
+
+        <Button
+            android:id="@+id/main_menu_resume_button"
+            android:layout_width="240dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/button_play_style"
+            app:backgroundTint="@null"
+            android:elevation="10dp"
+            android:text="@string/main_menu_resume_game"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/main_menu_play_button"
+            android:layout_width="240dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_play_style"
+            app:backgroundTint="@null"
+            android:elevation="10dp"
+            android:text="@string/main_menu_play_random"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/main_menu_seed_button"
+            android:layout_width="240dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_play_style"
+            app:backgroundTint="@null"
+            android:elevation="10dp"
+            android:text="@string/main_menu_play_seed"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAllCaps="false" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fond orange avec bordure blanche, style arrondi comme les autres boutons -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FFAB40" />
+            <corners android:radius="15dp" />
+            <stroke
+                android:width="2dp"
+                android:color="#FFFFFFFF" />
+        </shape>
+    </item>
+    <!-- Icône engrenage avec un peu plus de marge interne -->
+    <item
+        android:drawable="@drawable/settings"
+        android:top="10dp"
+        android:bottom="10dp"
+        android:left="10dp"
+        android:right="10dp" />
+</layer-list>

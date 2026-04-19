@@ -1,0 +1,40 @@
+@startuml
+start
+
+:Glissement valide\nsur la grille;
+:GameLoop.executeTurn(...);
+
+if (Tour déjà en cours ?) then (oui)
+  stop
+endif
+
+:Appliquer le décalage\ndans la grille;
+:Grid.resolveTurnDetails();
+
+if (Au moins une série ?) then (oui)
+  :Incrémenter le nombre\nde coups;
+
+  if (Hard mode et\ncoup multiple de 5 ?) then (oui)
+    :Inverser la gravité;
+  endif
+
+  :Calculer la probabilité\nde verrouillage;
+  if (Verrouillage déclenché ?) then (oui)
+    :Verrouiller une case libre;
+  endif
+
+  :Calculer le score final\ndu tour;
+  :Mettre à jour le HUD\net redessiner la vue;
+
+  if (Encore un coup possible ?) then (oui)
+    :Sauvegarder la partie;
+  else (non)
+    :Afficher l'écran\nde fin de partie;
+  endif
+else (non)
+  :Annuler le décalage;
+  :Redessiner la vue;
+endif
+
+stop
+@enduml

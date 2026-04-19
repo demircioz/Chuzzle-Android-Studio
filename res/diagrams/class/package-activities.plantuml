@@ -1,0 +1,51 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class MainActivity <<AppCompatActivity>> {
+  -resumeGameButton : Button
+  +onCreate(savedInstanceState : Bundle)
+  +onResume()
+  +onCreateOptionsMenu(menu : Menu) : boolean
+}
+
+class SeedActivity <<Activity>> {
+  -seedEditText : EditText
+  -playSeedButton : Button
+  +onCreate(savedInstanceState : Bundle)
+  +lancerLeJeu(seed : long)
+}
+
+class GameActivity <<Activity>> {
+  -grid : Grid
+  -gameView : GameView
+  -gameLoop : GameLoop
+  -currentScore : int
+  -movesCount : int
+  +onCreate(savedInstanceState : Bundle)
+  +onPause()
+  +gameOver()
+  +persistCurrentGame()
+}
+
+class OptionsActivity <<PreferenceActivity>> {
+  +onCreate(savedInstanceState : Bundle)
+}
+
+class Grid
+class GameView
+class GameLoop
+class SaveGameManager
+
+MainActivity ..> SeedActivity : ouvre
+MainActivity ..> GameActivity : lance / reprend
+MainActivity ..> OptionsActivity : paramètres
+
+SeedActivity ..> GameActivity : partie seedée
+GameActivity ..> MainActivity : retour menu
+
+GameActivity ..> Grid
+GameActivity ..> GameView
+GameActivity ..> GameLoop
+GameActivity ..> SaveGameManager
+
+@enduml

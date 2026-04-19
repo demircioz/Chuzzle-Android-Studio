@@ -1,0 +1,53 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Box {
+  -x : int
+  -y : int
+  -color : int
+  -available : boolean
+  +getColor() : int
+  +setColor(color : int)
+  +isAvailable() : boolean
+  +setAvailability(available : boolean)
+}
+
+class Grid {
+  +GRID_SIZE : int
+  +COLOR_COUNT : int
+  -table : Box[][]
+  -seed : long
+  -invertedGravity : boolean
+  -physics : GridPhysics
+  +Grid()
+  +Grid(seed : long)
+  +hasPossibleMoves() : boolean
+  +resolveTurnDetails() : int[]
+  +moveLeft(row : int, dist : int)
+  +moveRight(row : int, dist : int)
+  +moveUp(col : int, dist : int)
+  +moveDown(col : int, dist : int)
+  +lockRandomBox()
+  +restoreState(...)
+}
+
+class GridPhysics {
+  -table : Box[][]
+  -size : int
+  +applyGravity(inverted : boolean)
+  +fillEmptySpaces()
+}
+
+class GridMoveAnalyst {
+  -table : Box[][]
+  -size : int
+  +hasPossibleMoves() : boolean
+}
+
+Grid "1" *-- "36" Box
+Grid "1" *-- "1" GridPhysics
+Grid ..> GridMoveAnalyst
+GridPhysics ..> Box
+GridMoveAnalyst ..> Box
+
+@enduml

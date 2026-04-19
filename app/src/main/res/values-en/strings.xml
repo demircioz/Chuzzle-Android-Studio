@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Chuzzle</string>
+    <string name="main_menu_resume_game">Resume game</string>
+    <string name="main_menu_play_random">Random game</string>
+    <string name="main_menu_play_seed">Seeded game</string>
+    <string name="main_menu_settings">Settings</string>
+    <string name="seed_prompt">Enter a seed:</string>
+    <string name="seed_hint">Example: 123456789</string>
+    <string name="seed_play_button">Start game</string>
+    <string name="seed_error_required">Enter a seed.</string>
+    <string name="seed_error_invalid">The entered seed is invalid.</string>
+    <string name="game_score_initial">Score: 0</string>
+    <string name="game_moves_initial">Moves: 0</string>
+    <string name="game_score_value">Score: %1$d</string>
+    <string name="game_moves_value">Moves: %1$d</string>
+    <string name="game_final_score_format">Final score: %1$d</string>
+    <string name="game_final_moves_format">Moves played: %1$d</string>
+    <string name="game_seed_display">Game seed:\n%1$d\n(Tap to copy)</string>
+    <string name="game_over_title">Game over</string>
+    <string name="game_over_title_short">End!</string>
+    <string name="game_over_retry">Play again</string>
+    <string name="game_over_quit">Quit</string>
+</resources>

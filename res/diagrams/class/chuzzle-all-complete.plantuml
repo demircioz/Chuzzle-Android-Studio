@@ -1,0 +1,418 @@
+@startuml
+title Chuzzle - Diagramme complet généré depuis les sources Java
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam wrapWidth 260
+skinparam maxMessageSize 300
+left to right direction
+scale max 12000 width
+
+package "fr.iut_fbleau.chuzzle" {
+  class ExampleInstrumentedTest {
+    + useAppContext() : void
+  }
+
+  class ExampleUnitTest {
+    + generatedGrid_startsPlayableWithoutMatches() : void
+    + hasPossibleMoves_detectsPlayableBoard() : void
+    + hasPossibleMoves_detectsBlockedBoard() : void
+    - createGrid(colors : int[][]) : Grid
+    - hasAnyMatch(table : Box[][]) : boolean
+  }
+
+}
+
+package "fr.iut_fbleau.chuzzle.controller.activities" {
+  class GameActivity {
+    + {static} EXTRA_USE_SEED : String
+    + {static} EXTRA_SEED_VALUE : String
+    + {static} EXTRA_RESUME_SAVED_GAME : String
+    - grid : Grid
+    - gameView : GameView
+    - gameLoop : GameLoop
+    - isGameOver : boolean
+    - scoreTextView : TextView
+    - movesTextView : TextView
+    - hudLayout : View
+    - gameOverLayout : LinearLayout
+    - gameOverStats : TextView
+    - gameOverSeed : TextView
+    - bottomStatsLayout : View
+    - bottomScoreText : TextView
+    - bottomMovesText : TextView
+    - currentScore : int
+    - movesCount : int
+    --
+    # onCreate(savedInstanceState : Bundle) : void
+    # onSaveInstanceState(outState : android.os.Bundle) : void
+    # onPause() : void
+    + onBackPressed() : void
+    + addScore(pointsEarned : int) : void
+    + incrementMoves() : void
+    + getMovesCount() : int
+    - updateHud() : void
+    + gameOver() : void
+    + persistCurrentGame() : void
+    - canPersistCurrentGame() : boolean
+    - createGridFromIntent() : void
+    - restoreSaveGame(saveGame : SaveGame) : void
+  }
+
+  class MainActivity {
+    - resumeGameButton : Button
+    --
+    # onCreate(savedInstanceState : Bundle) : void
+    # onResume() : void
+    + onCreateOptionsMenu(menu : android.view.Menu) : boolean
+    + onOptionsItemSelected(item : android.view.MenuItem) : boolean
+    - updateResumeButtonVisibility() : void
+  }
+
+  class OptionsActivity {
+    # onCreate(savedInstanceState : Bundle) : void
+  }
+
+  class SeedActivity {
+    - seedEditText : EditText
+    - playSeedButton : Button
+    --
+    # onCreate(savedInstanceState : Bundle) : void
+    + onBackPressed() : void
+    + lancerLeJeu(seed : long) : void
+  }
+
+}
+
+package "fr.iut_fbleau.chuzzle.controller.game" {
+  class GameLoop {
+    - grid : Grid
+    - view : GameView
+    - activity : GameActivity
+    - resolvingTurn : boolean
+    - hardMode : boolean
+    --
+    + GameLoop(grid : Grid, view : GameView, activity : GameActivity)
+    + setHardMode(hardMode : boolean) : void
+    + isResolvingTurn() : boolean
+    + canMoveRow(rowIndex : int) : boolean
+    + canMoveColumn(colIndex : int) : boolean
+    + executeTurn(isHorizontal : boolean, index : int, distance : int) : void
+    - processValidMove(resolution : int[]) : void
+    - checkGameState() : void
+    - move(isHorizontal : boolean, index : int, distance : int) : void
+    - manageLockChance() : void
+    - calculateFinalScore(totalBasePoints : int, totalSeries : int) : int
+  }
+
+  class GameTouchController {
+    - {static} AXIS_NONE : int
+    - {static} AXIS_HORIZONTAL : int
+    - {static} AXIS_VERTICAL : int
+    - view : GameView
+    - gameLoop : GameLoop
+    - startX : float
+    - startY : float
+    - threshold : float
+    - isDragging : boolean
+    - lockedAxis : int
+    - lockedRow : int
+    - lockedCol : int
+    --
+    + GameTouchController(view : GameView, gameLoop : GameLoop)
+    + onTouch(v : View, event : MotionEvent) : boolean
+    - handleMove(x : float, y : float) : void
+    - startDragging(deltaX : float, deltaY : float) : void
+    - resetGestureState() : void
+    - handleUp(v : View, x : float, y : float) : void
+    - getRowFromY(y : float) : int
+    - getColFromX(x : float) : int
+  }
+
+}
+
+package "fr.iut_fbleau.chuzzle.controller.listeners" {
+  class CopySeedListener {
+    - context : Context
+    - seed : long
+    --
+    + CopySeedListener(context : Context, seed : long)
+    + onClick(v : View) : void
+  }
+
+  class OptionsListener {
+    - context : Context
+    --
+    + OptionsListener(context : Context)
+    + onClick(v : View) : void
+  }
+
+  class PlayRandomListener {
+    - activity : MainActivity
+    --
+    + PlayRandomListener(activity : MainActivity)
+    + onClick(v : View) : void
+  }
+
+  class PlaySeedListener {
+    - activity : MainActivity
+    --
+    + PlaySeedListener(activity : MainActivity)
+    + onClick(v : View) : void
+  }
+
+  class ResumeGameListener {
+    - activity : MainActivity
+    --
+    + ResumeGameListener(activity : MainActivity)
+    + onClick(v : View) : void
+  }
+
+  class SeedButtonListener {
+    - activity : SeedActivity
+    - seedEditText : EditText
+    --
+    + SeedButtonListener(activity : SeedActivity, seedEditText : EditText)
+    + onClick(v : View) : void
+  }
+
+}
+
+package "fr.iut_fbleau.chuzzle.controller.persistence" {
+  class SaveGame {
+    - seed : long
+    - score : int
+    - moves : int
+    - colors : int[]
+    - avails : boolean[]
+    - generator : Random
+    - invertedGravity : boolean
+    --
+    + SaveGame()
+    + SaveGame(seed : long, score : int, moves : int, colors : int[], avails : boolean[], generator : Random, invertedGravity : boolean)
+    + getSeed() : long
+    + setSeed(seed : long) : void
+    + getScore() : int
+    + setScore(score : int) : void
+    + getMoves() : int
+    + setMoves(moves : int) : void
+    + getColors() : int[]
+    + setColors(colors : int[]) : void
+    + getAvails() : boolean[]
+    + setAvails(avails : boolean[]) : void
+    + getGenerator() : Random
+    + setGenerator(generator : Random) : void
+    + isInvertedGravity() : boolean
+    + setInvertedGravity(invertedGravity : boolean) : void
+  }
+
+  class SaveGameManager {
+    - {static} GRID_CELL_COUNT : int
+    - {static} PREFS_NAME : String
+    - {static} KEY_HAS_SAVE : String
+    - {static} KEY_SEED : String
+    - {static} KEY_SCORE : String
+    - {static} KEY_MOVES : String
+    - {static} KEY_COLORS : String
+    - {static} KEY_AVAILS : String
+    - {static} KEY_RANDOM : String
+    - {static} KEY_INVERTED_GRAVITY : String
+    --
+    + SaveGameManager()
+    + {static} hasSavedGame(context : Context) : boolean
+    + {static} save(context : Context, grid : Grid, score : int, moves : int) : void
+    + {static} load(context : Context) : SaveGame
+    + {static} clear(context : Context) : void
+    + {static} writeToBundle(outState : Bundle, grid : Grid, score : int, moves : int) : void
+    + {static} fromBundle(bundle : Bundle) : SaveGame
+    - {static} capture(grid : Grid, score : int, moves : int) : SaveGame
+    - {static} createSaveGame(seed : long, score : int, moves : int, colors : int[], avails : boolean[], generator : Random, invertedGravity : boolean) : SaveGame
+    - {static} serializeRandom(generator : Random) : String
+    - {static} deserializeRandom(encodedRandom : String) : Random
+    - {static} serializeIntArray(values : int[]) : String
+    - {static} deserializeIntArray(serializedValues : String) : int[]
+    - {static} serializeBooleanArray(values : boolean[]) : String
+    - {static} deserializeBooleanArray(serializedValues : String) : boolean[]
+  }
+
+}
+
+package "fr.iut_fbleau.chuzzle.model.box" {
+  class Box {
+    - x : int
+    - y : int
+    - color : int
+    - available : boolean
+    --
+    + Box(x : int, y : int, color : int, available : boolean)
+    + getX() : int
+    + setX(x : int) : void
+    + getY() : int
+    + setY(y : int) : void
+    + getColor() : int
+    + setColor(color : int) : void
+    + isAvailable() : boolean
+    + setAvailability(available : boolean) : void
+  }
+
+}
+
+package "fr.iut_fbleau.chuzzle.model.grid" {
+  class Grid {
+    + {static} GRID_SIZE : int
+    + {static} COLOR_COUNT : int
+    - table : Box[][]
+    - seed : long
+    - generator : Random
+    - size : int
+    - invertedGravity : boolean
+    - physics : GridPhysics
+    --
+    + Grid()
+    + Grid(s : long)
+    - initGrid() : void
+    - createPhysics() : void
+    - generateGridWithoutMatches() : void
+    - generateValidColor(i : int, j : int) : int
+    + hasPossibleMoves() : boolean
+    + checkMatches() : int[]
+    - scanLine(idx : int, isRow : boolean, toDestroy : boolean[][]) : int[]
+    - applyDestruction(toDestroy : boolean[][]) : void
+    + applyGravity() : void
+    + fillEmptySpaces() : void
+    + restoreState(colors : int[], avails : boolean[], generator : Random, invertedGravity : boolean) : void
+    - calculateBasePoints(len : int) : int
+    + resolveTurnDetails() : int[]
+    + resolveTurn() : int
+    + moveLeft(r : int, d : int) : void
+    + moveRight(r : int, d : int) : void
+    + moveUp(c : int, d : int) : void
+    + moveDown(c : int, d : int) : void
+    - shift(idx : int, dist : int, isRow : boolean, forward : boolean) : void
+    - shiftRow(r : int, fwd : boolean) : void
+    - shiftCol(c : int, fwd : boolean) : void
+    + canMoveRow(r : int) : boolean
+    + canMoveColumn(c : int) : boolean
+    + lockRandomBox() : void
+    + shouldLockBox(c : double) : boolean
+    + getTable() : Box[][]
+    + getSeed() : long
+    + setInvertedGravity(v : boolean) : void
+    + isInvertedGravity() : boolean
+    + getGenerator() : Random
+    + setGenerator(generator : Random) : void
+  }
+
+  class GridMoveAnalyst {
+    - table : Box[][]
+    - size : int
+    --
+    + GridMoveAnalyst(table : Box[][], size : int)
+    + hasPossibleMoves() : boolean
+    - canMoveRow(rowIndex : int) : boolean
+    - canMoveColumn(colIndex : int) : boolean
+    - hasPossibleRowShift(row : int) : boolean
+    - hasPossibleColumnShift(col : int) : boolean
+    - createsMatchAfterRowShift(row : int, shift : int) : boolean
+    - createsMatchAfterColumnShift(col : int, shift : int) : boolean
+    - hasHorizontalMatchOnShiftedRow(row : int, col : int, shift : int, color : int) : boolean
+    - hasVerticalMatchOnShiftedColumn(col : int, row : int, shift : int, color : int) : boolean
+    - hasHorizontalMatchAt(row : int, col : int, color : int) : boolean
+    - hasVerticalMatchAt(row : int, col : int, color : int) : boolean
+    - getRowColorAfterRightShift(row : int, targetCol : int, shift : int) : int
+    - getColumnColorAfterDownShift(col : int, targetRow : int, shift : int) : int
+    - wrapIndex(index : int) : int
+  }
+
+  class GridPhysics {
+    - table : Box[][]
+    - size : int
+    - generator : Random
+    --
+    + GridPhysics(table : Box[][], size : int, generator : Random)
+    + applyGravity(inverted : boolean) : void
+    - applyNormalGravity() : void
+    - pullDown(i : int, j : int) : void
+    - applyInvertedGravity() : void
+    - pullUp(i : int, j : int) : void
+    - swapBoxes(r1 : int, c1 : int, r2 : int, c2 : int) : void
+    + fillEmptySpaces() : void
+  }
+
+}
+
+package "fr.iut_fbleau.chuzzle.view" {
+  class GameView {
+    - grid : Grid
+    - boxImages : Bitmap[]
+    - emptyPaint : Paint
+    - highlightPaint : Paint
+    - gridBgPaint : Paint
+    - cellBgPaint : Paint
+    - gridOutlinePaint : Paint
+    - lockImage : Bitmap
+    - cellSize : float
+    - {static} MARGIN : float
+    - {static} CELL_BG_MARGIN : float
+    - movingRow : int
+    - movingCol : int
+    - dragOffsetPixel : float
+    - errorRow : int
+    - errorCol : int
+    - boardRect : RectF
+    - cellRect : RectF
+    - boxRect : RectF
+    - lockDestRect : RectF
+    --
+    + GameView(context : Context, attrs : AttributeSet)
+    - initPaints() : void
+    + setGrid(grid : Grid) : void
+    + setDragOffset(row : int, col : int, offsetPixel : float) : void
+    + setErrorHighlight(row : int, col : int) : void
+    + resetDragOffset() : void
+    # onDraw(canvas : Canvas) : void
+    + performClick() : boolean
+    - drawBoard(canvas : Canvas) : void
+    - drawSingleBoxLogicalAt(canvas : Canvas, i : int, j : int, dx : float, dy : float) : void
+    - drawLockIfNeeded(canvas : Canvas, box : Box, rect : RectF) : void
+  }
+
+}
+
+ExampleUnitTest ..> Box
+ExampleUnitTest ..> Grid
+GameActivity --> GameLoop
+GameActivity --> GameView
+GameActivity --> Grid
+GameActivity ..> SaveGame
+GameLoop --> GameActivity
+GameLoop --> GameView
+GameLoop --> Grid
+GameLoop ..> GameActivity
+GameLoop ..> GameView
+GameLoop ..> Grid
+GameTouchController --> GameLoop
+GameTouchController --> GameView
+GameTouchController ..> GameLoop
+GameTouchController ..> GameView
+GameView --> Grid
+GameView ..> Box
+GameView ..> Grid
+Grid --> Box
+Grid --> GridPhysics
+Grid ..> Box
+GridMoveAnalyst --> Box
+GridMoveAnalyst ..> Box
+GridPhysics --> Box
+GridPhysics ..> Box
+PlayRandomListener --> MainActivity
+PlayRandomListener ..> MainActivity
+PlaySeedListener --> MainActivity
+PlaySeedListener ..> MainActivity
+ResumeGameListener --> MainActivity
+ResumeGameListener ..> MainActivity
+SaveGameManager ..> Grid
+SaveGameManager ..> SaveGame
+SeedButtonListener --> SeedActivity
+SeedButtonListener ..> SeedActivity
+@enduml

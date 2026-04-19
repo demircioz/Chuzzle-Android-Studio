@@ -1,0 +1,50 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class GameLoop {
+  -grid : Grid
+  -view : GameView
+  -activity : GameActivity
+  -resolvingTurn : boolean
+  -hardMode : boolean
+  +executeTurn(isHorizontal : boolean, index : int, distance : int)
+  +canMoveRow(rowIndex : int) : boolean
+  +canMoveColumn(colIndex : int) : boolean
+  +isResolvingTurn() : boolean
+}
+
+class GameTouchController {
+  -view : GameView
+  -gameLoop : GameLoop
+  -startX : float
+  -startY : float
+  -lockedAxis : int
+  -lockedRow : int
+  -lockedCol : int
+  +onTouch(v : View, event : MotionEvent) : boolean
+}
+
+class GameView {
+  -grid : Grid
+  -movingRow : int
+  -movingCol : int
+  -dragOffsetPixel : float
+  -errorRow : int
+  -errorCol : int
+  +setGrid(grid : Grid)
+  +setDragOffset(row : int, col : int, offsetPixel : float)
+  +setErrorHighlight(row : int, col : int)
+  +resetDragOffset()
+}
+
+class GameActivity
+class Grid
+
+GameTouchController ..> GameLoop
+GameTouchController ..> GameView
+GameLoop ..> Grid
+GameLoop ..> GameView
+GameLoop ..> GameActivity
+GameView ..> Grid
+
+@enduml

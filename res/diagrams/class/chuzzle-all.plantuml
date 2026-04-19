@@ -1,0 +1,89 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide members
+left to right direction
+
+package "controller.activities" {
+  class MainActivity
+  class SeedActivity
+  class GameActivity
+  class OptionsActivity
+}
+
+package "controller.game" {
+  class GameLoop
+  class GameTouchController
+}
+
+package "controller.listeners" {
+  class PlayRandomListener
+  class PlaySeedListener
+  class ResumeGameListener
+  class OptionsListener
+  class SeedButtonListener
+  class CopySeedListener
+}
+
+package "controller.persistence" {
+  class SaveGame
+  class SaveGameManager
+}
+
+package "model.box" {
+  class Box
+}
+
+package "model.grid" {
+  class Grid
+  class GridPhysics
+  class GridMoveAnalyst
+}
+
+package "view" {
+  class GameView
+}
+
+MainActivity ..> PlayRandomListener
+MainActivity ..> PlaySeedListener
+MainActivity ..> ResumeGameListener
+MainActivity ..> OptionsListener
+MainActivity ..> SaveGameManager
+
+PlayRandomListener ..> GameActivity
+PlaySeedListener ..> SeedActivity
+ResumeGameListener ..> GameActivity
+OptionsListener ..> OptionsActivity
+
+SeedActivity ..> SeedButtonListener
+SeedButtonListener ..> GameActivity
+
+GameActivity "1" o-- "1" GameView
+GameActivity "1" o-- "1" GameLoop
+GameActivity ..> Grid
+GameActivity ..> SaveGameManager
+GameActivity ..> CopySeedListener
+GameActivity ..> MainActivity
+
+CopySeedListener ..> SeedActivity
+
+GameTouchController ..> GameLoop
+GameTouchController ..> GameView
+
+GameLoop "1" ..> "1" Grid
+GameLoop "1" ..> "1" GameView
+GameLoop "1" ..> "1" GameActivity
+
+SaveGameManager ..> SaveGame
+SaveGameManager ..> Grid
+SaveGameManager ..> Box
+
+GameView ..> Grid
+
+Grid "1" *-- "36" Box
+Grid "1" *-- "1" GridPhysics
+Grid ..> GridMoveAnalyst
+
+GridPhysics ..> Box
+GridMoveAnalyst ..> Box
+
+@enduml
