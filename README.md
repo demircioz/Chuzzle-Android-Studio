@@ -1,18 +1,18 @@
-# 🎮 Chuzzle - Application Android Java (SAE 4.1)
+# 🎮 Chuzzle - Android Java Application (SAE 4.1)
 
-> Un jeu de puzzle-match mobile développé en Java pour Android dans le cadre de la SAE 4.1.
+> A mobile puzzle-match game developed in Java for Android as part of SAE 4.1.
 
 ---
 
-## 📖 Sommaire
+## 📖 Table of Contents
 
 * [Introduction](#introduction)
-* [Fonctionnalités principales](#fonctionnalités-principales)
-* [Structure du projet](#structure-du-projet)
-* [Installation et lancement](#installation-et-lancement)
+* [Main Features](#main-features)
+* [Project Structure](#project-structure)
+* [Installation and Launch](#installation-and-launch)
 * [Documentation](#documentation)
-* [Auteurs](#auteurs)
-* [Licence](#licence)
+* [Authors](#authors)
+* [License](#license)
 
 ---
 
@@ -20,97 +20,101 @@
 
 ## 🪶 Introduction
 
-**Chuzzle** est une application Android de réflexion basée sur une grille interactive `6 x 6`.
-Le joueur doit faire glisser des lignes ou des colonnes pour former des séries de `3` couleurs identiques ou plus et accumuler le plus de points possible.
+**Chuzzle** is an Android puzzle game based on an interactive `6 x 6` grid.  
+The player must slide rows or columns to create matches of `3` identical colors or more and score as many points as possible. :contentReference[oaicite:0]{index=0}
 
-Le projet propose plusieurs façons de jouer :
+The project offers several ways to play:
 
-* une **partie normale** générée aléatoirement ;
-* une **partie avec seed** pour rejouer une grille précise ;
-* une **reprise de partie** grâce à une sauvegarde locale ;
-* un **Hard Mode** qui augmente la difficulté avec des verrous et une gravité inversée.
+* a **normal game** generated randomly;
+* a **seeded game** to replay a specific grid;
+* a **resume game** feature thanks to local save data;
+* a **Hard Mode** that increases difficulty with locks and reversed gravity. :contentReference[oaicite:1]{index=1}
 
-L'application a été conçue avec une structure claire séparant les activités Android, la logique de jeu, la persistance et l'affichage.
+The application was designed with a clear structure separating Android activities, game logic, persistence, and rendering. :contentReference[oaicite:2]{index=2}
 
 ---
 
-<a id="fonctionnalités-principales"></a>
+<a id="main-features"></a>
 
-## 🚀 Fonctionnalités principales
+## 🚀 Main Features
 
 ### 🕹️ Gameplay
 
-* Déplacement circulaire des lignes et colonnes par geste tactile.
-* Validation uniquement des coups produisant une combinaison.
-* Annulation automatique des mouvements invalides.
-* Gestion des cascades, de la gravité et du remplissage de la grille.
-* Fin de partie lorsqu'aucun coup valide ne reste.
+* Circular movement of rows and columns through touch gestures.
+* Validation only for moves that create a combination.
+* Automatic cancellation of invalid moves.
+* Management of cascades, gravity, and board refilling.
+* Game over when no valid move remains. :contentReference[oaicite:3]{index=3}
 
-### 💾 Sauvegarde et rejouabilité
+### 💾 Save System & Replayability
 
-* Sauvegarde locale de la partie en cours.
-* Reprise depuis le menu principal.
-* Système de **seed** pour relancer une même partie.
-* Copie de la seed en fin de partie.
+* Local save of the current game.
+* Resume from the main menu.
+* **Seed** system to restart the same game.
+* Copy the seed at the end of the game. :contentReference[oaicite:4]{index=4}
 
-### ⚙️ Interface et options
+### ⚙️ Interface & Options
 
-* Mode **portrait** et **paysage**.
-* Chaînes disponibles en **français** et en **anglais**.
-* Activation du **Hard Mode** depuis les préférences.
+* **Portrait** and **landscape** modes.
+* Available strings in **French** and **English**.
+* Enable **Hard Mode** from preferences. :contentReference[oaicite:5]{index=5}
 
 ---
 
-<a id="structure-du-projet"></a>
+<a id="project-structure"></a>
 
-## 🗂️ Structure du projet
+## 🗂️ Project Structure
 
 ```text
 SAE41_2025/
 ├── app/
 │   ├── src/main/java/fr/iut_fbleau/chuzzle/
-│   │   ├── controller/         # Activités, listeners, logique de jeu, persistance
-│   │   ├── model/              # Cases, grille, gravité, analyse des coups
-│   │   └── view/               # Rendu graphique du plateau
-│   └── src/main/res/           # Layouts, images, chaînes, préférences
+│   │   ├── controller/         # Activities, listeners, game logic, persistence
+│   │   ├── model/              # Cells, grid, gravity, move analysis
+│   │   └── view/               # Board graphic rendering
+│   └── src/main/res/           # Layouts, images, strings, preferences
 ├── gradle/
-├── res/diagrams/               # Diagrammes PlantUML et SVG
+├── res/diagrams/               # PlantUML and SVG diagrams
 ├── Rapport.pdf
 └── README.md
-```
+````
+
+
 
 ---
 
-<a id="installation-et-lancement"></a>
+<a id="installation-and-launch"></a>
 
-## ⚙️ Installation et lancement
+## ⚙️ Installation and Launch
 
-### Prérequis
+### Prerequisites
 
 * **Android Studio**
-* **JDK 11** ou plus récent
-* un **émulateur Android** ou un **appareil physique**
+* **JDK 11** or newer
+* an **Android emulator** or a **physical device** 
 
-### Lancer le projet
+### Run the Project
 
-1. Ouvrir le dossier dans Android Studio.
-2. Laisser Gradle synchroniser les dépendances.
-3. Exécuter l'application sur un émulateur ou un appareil.
+1. Open the folder in Android Studio.
+2. Let Gradle sync dependencies.
+3. Run the application on an emulator or device. 
 
-### Commandes utiles
+### Useful Commands
 
-Sous Windows :
+On Windows:
 
 ```powershell
 .\gradlew.bat assembleDebug
 .\gradlew.bat test
 ```
 
-L'APK de debug généré se trouve dans :
+The generated debug APK is located in:
 
 ```text
 app/build/outputs/apk/debug/app-debug.apk
 ```
+
+
 
 ---
 
@@ -118,29 +122,29 @@ app/build/outputs/apk/debug/app-debug.apk
 
 ## 📚 Documentation
 
-Le dépôt contient également :
+The repository also contains:
 
-* `Rapport.pdf` pour la présentation complète du projet ;
-* `res/diagrams/` pour les diagrammes ;
-* des commentaires Javadoc dans les classes principales.
+* `Rapport SAé Chuzzle - Semestre 4 - Android Studio - Java.pdf` for the complete project presentation (in French);
+* `res/diagrams/` for diagrams;
+* Javadoc comments in the main classes. 
 
 ---
 
-<a id="auteurs"></a>
+<a id="authors"></a>
 
-## 👨‍💻 Auteurs
+## 👨‍💻 Authors
 
 * Maxime ELIOT
 * Canpolat DEMIRCI-OZMEN
 * Adrien RABOT
 
-Projet réalisé dans le cadre de la **SAE 4.1**  
-**BUT Informatique - IUT de Fontainebleau - UPEC**
+Project completed as part of **SAE 4.1**
+**BUT Computer Science - IUT of Fontainebleau - UPEC** 
 
 ---
 
-<a id="licence"></a>
+<a id="license"></a>
 
-## 📄 Licence
+## 📄 License
 
-Projet distribué sous licence **MIT**. Voir [LICENSE](LICENSE).
+Project distributed under the **MIT** license. See [LICENSE](LICENSE). 
